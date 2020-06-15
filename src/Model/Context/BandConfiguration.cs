@@ -18,7 +18,7 @@ namespace LyrnicsDotnetCore.Model.Context {
             builder.Property( b => b.Code ).HasMaxLength( DEFAULT_MAX_LENGTH )
                     .IsRequired().HasColumnName( "code" );
             builder.HasMany( b => b.Songs ).WithOne( s => s.Band )
-                    .IsRequired().HasConstraintName( "fk_song_band_band_id" );
+                    .IsRequired().HasConstraintName( "fk_Band_band_band_id" );
         }//END Configure()
     }//END class
 } //END namespace

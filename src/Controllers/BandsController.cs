@@ -27,7 +27,7 @@ namespace LyrnicsDotnetCore.Services{
         }//END Get()
 
         [HttpPost]
-        public IActionResult Post( [FromBody] Band band ){
+        public IActionResult Post( [FromBody] Song band ){
             return Ok( band );
         }
 

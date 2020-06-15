@@ -5,42 +5,40 @@ using LyrnicsDotnetCore.Model;
 using LyrnicsDotnetCore.Model.Context;
 
 namespace LyrnicsDotnetCore.Repository.Implementations{
-    public class BandRepositoryImpl : IBandRepository {
+    public class SongRepositoryImpl : ISongRepository {
         
         LyrnicsDBContext Context;
-        public BandRepositoryImpl( LyrnicsDBContext context ) {
+        public SongRepositoryImpl( LyrnicsDBContext context ) {
             this.Context = context;
         }//END constructor
         
         public IList<Song> FindAll() {
-            return this.Context.Bands.ToList();
+            return this.Context.Songs.ToList();
         }//END FindAll()
 
         public Song FindById( int id ){
-            return this.Context.Bands.SingleOrDefault( b => b.Id.Equals( id) );
-            //return this.Context.Bands.Find(id);
+            return this.Context.Songs.SingleOrDefault( b => b.Id.Equals( id) );
         }
-        public Song Create( Song band ){
-            this.Context.Add( band );
+        public Song Create( Song song ){
+            this.Context.Add( song );
             this.Context.SaveChanges();
-            return band;
+            return song;
         }//END Create()
-        public Song Update( Song band ){
+        public Song Update( Song song ){
             
-            Song result = this.Context.Bands.SingleOrDefault( b => b.Id.Equals( band.Id ) );
+            Song result = this.Context.Songs.SingleOrDefault( b => b.Id.Equals( song.Id ) );
             if( result == null ) return null;
             try{
-                this.Context.Entry( result ).CurrentValues.SetValues( band );
+                this.Context.Entry( result ).CurrentValues.SetValues( song );
                 this.Context.SaveChanges();
                 return result;
             }catch( Exception e ){
                 throw e;
             }//END try
-
         }//END Update()
 
         public bool Delete( int id ){
-            Song result = this.Context.Bands.SingleOrDefault( b => b.Id.Equals( id ) );
+            Song result = this.Context.Songs.SingleOrDefault( b => b.Id.Equals( id ) );
             if( result != null ) {
                 this.Context.Remove( result );
                 this.Context.SaveChanges();
@@ -50,9 +48,8 @@ namespace LyrnicsDotnetCore.Repository.Implementations{
         }//END Delete()
 
         private bool Exists( Song band ){
-            return this.Context.Bands.Any( b => b.Id.Equals( band.Id ) );
+            return this.Context.Songs.Any( b => b.Id.Equals( band.Id ) );
         }//END Exists()
-        
     }//END class
 
 }//END namespace
