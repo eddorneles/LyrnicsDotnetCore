@@ -19,7 +19,7 @@ namespace LyrnicsDotnetCore.Model.Context {
         #endregion
 
         public DbSet<Song> Songs{get;set;}
-        public DbSet<Song> Bands{get;set;}
+        public DbSet<Band> Bands{get;set;}
     }////END class
 
 

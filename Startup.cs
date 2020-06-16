@@ -11,7 +11,14 @@ using Microsoft.Extensions.Hosting;
 
 using Microsoft.EntityFrameworkCore;
 
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.ApplicationModels;
+
+using LyrnicsDotnetCore.Repository;
+using LyrnicsDotnetCore.Repository.Implementations;
 using LyrnicsDotnetCore.Model.Context;
+
 using LyrnicsDotnetCore.Services;
 using LyrnicsDotnetCore.Services.Implementations;
 
@@ -30,11 +37,13 @@ namespace LyrnicsDotnetCore
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //Carrega 
+            services.AddControllersWithViews( o => {
+                o.UseGeneralRoutePrefix( "api" );
+            } );
+            //Loads the value from appsettings.json
             var connection = Configuration["PosgresConnection:PosgresConnectionString"];
             services.AddDbContext<LyrnicsDBContext>( options => options.UseNpgsql( connection ) );
-            services.AddMvc();
-            services.AddScoped<ISongService, SongServiceImpl>(  );
+            services.AddScoped<IBandRepository, BandRepositoryImpl>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,13 +56,51 @@ namespace LyrnicsDotnetCore
 
             app.UseRouting();
 
-            app.UseEndpoints(endpoints =>
-            {
+            app.UseEndpoints( endpoints => {
+                endpoints.MapControllers();
+                
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                     await context.Response.WriteAsync("Hello Lyrnics!");
                 });
             });
         }
-    }
-}
+    }//END class
+
+    public static class MvcOptionsExtensions {
+        public static void UseGeneralRoutePrefix(this MvcOptions opts, IRouteTemplateProvider routeAttribute)
+        {
+            opts.Conventions.Add(new RoutePrefixConvention(routeAttribute));
+        }
+
+        public static void UseGeneralRoutePrefix(this MvcOptions opts, string 
+        prefix)
+        {
+            opts.UseGeneralRoutePrefix(new RouteAttribute(prefix));
+        }
+    }//END class
+
+    public class RoutePrefixConvention : IApplicationModelConvention {
+        private readonly AttributeRouteModel _routePrefix;
+
+        public RoutePrefixConvention(IRouteTemplateProvider route)
+        {
+            _routePrefix = new AttributeRouteModel(route);
+        }
+
+        public void Apply(ApplicationModel application)
+        {
+            foreach (var selector in application.Controllers.SelectMany(c => c.Selectors))
+            {
+                if (selector.AttributeRouteModel != null)
+                {
+                    selector.AttributeRouteModel = AttributeRouteModel.CombineAttributeRouteModel(_routePrefix, selector.AttributeRouteModel);
+                }
+                else
+                {
+                    selector.AttributeRouteModel = _routePrefix;
+                }
+            }
+        }
+    }//END class RoutePrefixConvention()
+}//END namespace
