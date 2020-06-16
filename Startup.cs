@@ -19,8 +19,8 @@ using LyrnicsDotnetCore.Repository;
 using LyrnicsDotnetCore.Repository.Implementations;
 using LyrnicsDotnetCore.Model.Context;
 
-using LyrnicsDotnetCore.Services;
-using LyrnicsDotnetCore.Services.Implementations;
+using LyrnicsDotnetCore.Business;
+using LyrnicsDotnetCore.Business.Implementations;
 
 namespace LyrnicsDotnetCore
 {

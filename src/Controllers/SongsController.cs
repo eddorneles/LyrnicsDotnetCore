@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
 using LyrnicsDotnetCore.Repository;
-using LyrnicsDotnetCore.Services;
+using LyrnicsDotnetCore.Business;
 using LyrnicsDotnetCore.Model;
 
 namespace LyrnicsDotnetCore.Controllers{
@@ -10,11 +10,11 @@ namespace LyrnicsDotnetCore.Controllers{
     [Route( "[controller]") ]
     public class SongsController : Controller {
 
-        private ISongService SongService;
+        private ISongBusiness SongBusiness;
         private ISongRepository SongRepository;
 
         public SongsController( ISongRepository bandRepository ){
-            //this.bandService = bandService;
+            //this.bandBusiness = bandBusiness;
             this.SongRepository = bandRepository;
         }//END constructor
 
