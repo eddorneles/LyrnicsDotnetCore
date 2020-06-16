@@ -1,35 +1,47 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 
+using LyrnicsDotnetCore.Repository;
 using LyrnicsDotnetCore.Services;
 using LyrnicsDotnetCore.Model;
 
+namespace LyrnicsDotnetCore.Controllers{
 
-namespace LyrnicsDotnetCore.Services{
-
-    [Route( "/[controller]") ]
+    [Route( "[controller]") ]
     public class BandsController : Controller {
 
-        private IBandService bandService;
+        private IBandService BandService;
+        private readonly IBandRepository BandRepository;
 
-        public BandsController( IBandService bandService ){
-            this.bandService = bandService;
+        public BandsController( IBandRepository bandRepository ){
+            //this.bandService = bandService;
+            this.BandRepository = bandRepository;
         }//END constructor
 
         [HttpGet]
-        public IActionResult Get(){
-            return Ok();
+        public IActionResult Index(){
+            IList<Band> bands = this.BandRepository.FindAll();
+            return Ok( bands );
         }//END Get()
-
-        [HttpGet("{id}")]
+        
+        [HttpGet( "{id}" )]
         public IActionResult Get( int id ){
-            return Ok();
+            Band band = this.BandRepository.FindById( id );
+            return Ok( band );
         }//END Get()
 
         [HttpPost]
-        public IActionResult Post( [FromBody] Song band ){
-            return Ok( band );
-        }
+        public IActionResult Post( [FromBody] Band band ){
+            Band createdBand = this.BandRepository.Create( band );
+            return Ok( createdBand );
+        }//END Post()
+
+        [HttpPut("{id}")]
+        public IActionResult Update( [FromRoute] int bandId, [FromBody] Band band ){
+            band.Id = bandId;
+            Band updatedBand = this.BandRepository.Update( band );
+            return Ok( updatedBand );
+        }//END Post()
 
     }//END class
 }//END namespace

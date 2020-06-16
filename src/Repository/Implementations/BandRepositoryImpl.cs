@@ -12,22 +12,22 @@ namespace LyrnicsDotnetCore.Repository.Implementations{
             this.Context = context;
         }//END constructor
         
-        public IList<Song> FindAll() {
+        public IList<Band> FindAll() {
             return this.Context.Bands.ToList();
         }//END FindAll()
 
-        public Song FindById( int id ){
+        public Band FindById( int id ){
             return this.Context.Bands.SingleOrDefault( b => b.Id.Equals( id) );
             //return this.Context.Bands.Find(id);
         }
-        public Song Create( Song band ){
+        public Band Create( Band band ){
             this.Context.Add( band );
             this.Context.SaveChanges();
             return band;
         }//END Create()
-        public Song Update( Song band ){
+        public Band Update( Band band ){
             
-            Song result = this.Context.Bands.SingleOrDefault( b => b.Id.Equals( band.Id ) );
+            Band result = this.Context.Bands.SingleOrDefault( b => b.Id.Equals( band.Id ) );
             if( result == null ) return null;
             try{
                 this.Context.Entry( result ).CurrentValues.SetValues( band );
@@ -40,7 +40,7 @@ namespace LyrnicsDotnetCore.Repository.Implementations{
         }//END Update()
 
         public bool Delete( int id ){
-            Song result = this.Context.Bands.SingleOrDefault( b => b.Id.Equals( id ) );
+            Band result = this.Context.Bands.SingleOrDefault( b => b.Id.Equals( id ) );
             if( result != null ) {
                 this.Context.Remove( result );
                 this.Context.SaveChanges();
@@ -49,7 +49,7 @@ namespace LyrnicsDotnetCore.Repository.Implementations{
             return false;
         }//END Delete()
 
-        private bool Exists( Song band ){
+        private bool Exists( Band band ){
             return this.Context.Bands.Any( b => b.Id.Equals( band.Id ) );
         }//END Exists()
         
