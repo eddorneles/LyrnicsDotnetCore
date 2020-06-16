@@ -13,13 +13,13 @@ namespace LyrnicsDotnetCore.Model.Context {
         #region Required
         protected override void OnModelCreating( ModelBuilder modelBuilder ){
             modelBuilder.ApplyConfiguration( new SongConfiguration() );
-            modelBuilder.ApplyConfiguration( new BandConfiguration() );
+            modelBuilder.ApplyConfiguration( new ArtistConfiguration() );
 
         }//END OnModelCreating
         #endregion
 
         public DbSet<Song> Songs{get;set;}
-        public DbSet<Band> Bands{get;set;}
+        public DbSet<Artist> Artists{get;set;}
     }////END class
 
 

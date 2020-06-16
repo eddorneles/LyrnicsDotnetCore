@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace LyrnicsDotnetCore.Model {
 
-    public class Band {
+    public class Artist {
         public long? Id {get;set;}
         public string Name {get;set;}
         public string Code {get;set;}

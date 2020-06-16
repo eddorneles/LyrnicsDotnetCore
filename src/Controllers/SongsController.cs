@@ -11,35 +11,33 @@ namespace LyrnicsDotnetCore.Controllers{
     public class SongsController : Controller {
 
         private ISongBusiness SongBusiness;
-        private ISongRepository SongRepository;
 
-        public SongsController( ISongRepository bandRepository ){
-            //this.bandBusiness = bandBusiness;
-            this.SongRepository = bandRepository;
+        public SongsController( ISongBusiness songBusiness ){
+            this.SongBusiness = songBusiness;
         }//END constructor
 
         [HttpGet]
         public IActionResult Index(){
-            IList<Song> bands = this.SongRepository.FindAll();
-            return Ok( bands );
+            IList<Song> songs = this.SongBusiness.FindAll();
+            return Ok( songs );
         }//END Get()
         
         [HttpGet( "{id}" )]
         public IActionResult Get( int id ){
-            Song band = this.SongRepository.FindById( id );
-            return Ok( band );
+            Song song = this.SongBusiness.FindById( id );
+            return Ok( song );
         }//END Get()
 
         [HttpPost]
-        public IActionResult Post( [FromBody] Song band ){
-            Song createdSong = this.SongRepository.Create( band );
+        public IActionResult Post( [FromBody] Song song ){
+            Song createdSong = this.SongBusiness.Create( song );
             return Ok( createdSong );
         }//END Post()
 
         [HttpPut("{id}")]
-        public IActionResult Update( [FromRoute] int bandId, [FromBody] Song band ){
-            band.Id = bandId;
-            Song updatedSong = this.SongRepository.Update( band );
+        public IActionResult Update( [FromRoute] int songId, [FromBody] Song song ){
+            song.Id = songId;
+            Song updatedSong = this.SongBusiness.Update( song );
             return Ok( updatedSong );
         }//END Post()
 
