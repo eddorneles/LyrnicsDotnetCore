@@ -19,8 +19,8 @@ using LyrnicsDotnetCore.Repository;
 using LyrnicsDotnetCore.Repository.Implementations;
 using LyrnicsDotnetCore.Model.Context;
 
-using LyrnicsDotnetCore.Services;
-using LyrnicsDotnetCore.Services.Implementations;
+using LyrnicsDotnetCore.Business;
+using LyrnicsDotnetCore.Business.Implementations;
 
 namespace LyrnicsDotnetCore
 {
@@ -43,7 +43,13 @@ namespace LyrnicsDotnetCore
             //Loads the value from appsettings.json
             var connection = Configuration["PosgresConnection:PosgresConnectionString"];
             services.AddDbContext<LyrnicsDBContext>( options => options.UseNpgsql( connection ) );
-            services.AddScoped<IBandRepository, BandRepositoryImpl>();
+            
+            services.AddScoped<IArtistBusiness, ArtistBusinessImpl>();
+            services.AddScoped<IArtistRepository, ArtistRepositoryImpl>();
+            services.AddScoped<ISongBusiness, SongBusinessImpl>();
+            services.AddScoped<ISongRepository, SongRepositoryImpl>();
+
+            services.AddScoped( typeof(IGenericRepository<>), typeof(GenericRepository<>) );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

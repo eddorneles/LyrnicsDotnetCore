@@ -2,12 +2,11 @@
 
 namespace LyrnicsDotnetCore.Model {
 
-    public class Song {
-        public long? Id {get;set;}
+    public class Song : BaseEntity{
         public string Title {get;set;}
         public string Code {get;set;}
-        public long? BandId{get;set;}
-        public Band Band {get;set;}
+        public long? ArtistId{get;set;}
+        public Artist Artist {get;set;}
 
     }//END class
 

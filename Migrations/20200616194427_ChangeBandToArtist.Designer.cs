@@ -3,15 +3,17 @@ using System;
 using LyrnicsDotnetCore.Model.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace LyrnicsDotnetCore.Migrations
 {
     [DbContext(typeof(LyrnicsDBContext))]
-    partial class LyrnicsDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200616194427_ChangeBandToArtist")]
+    partial class ChangeBandToArtist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
