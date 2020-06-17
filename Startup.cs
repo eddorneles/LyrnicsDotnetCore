@@ -48,6 +48,8 @@ namespace LyrnicsDotnetCore
             services.AddScoped<IArtistRepository, ArtistRepositoryImpl>();
             services.AddScoped<ISongBusiness, SongBusinessImpl>();
             services.AddScoped<ISongRepository, SongRepositoryImpl>();
+
+            services.AddScoped( typeof(IGenericRepository<>), typeof(GenericRepository<>) );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,7 +7,7 @@ using LyrnicsDotnetCore.Model.Context;
 namespace LyrnicsDotnetCore.Repository.Implementations{
     public class ArtistRepositoryImpl : IArtistRepository {
         
-        LyrnicsDBContext Context;
+        private LyrnicsDBContext Context;
         public ArtistRepositoryImpl( LyrnicsDBContext context ) {
             this.Context = context;
         }//END constructor
@@ -20,17 +20,17 @@ namespace LyrnicsDotnetCore.Repository.Implementations{
             return this.Context.Artists.SingleOrDefault( b => b.Id.Equals( id) );
             //return this.Context.Artists.Find(id);
         }
-        public Artist Create( Artist band ){
-            this.Context.Add( band );
+        public Artist Create( Artist artist ){
+            this.Context.Add( artist );
             this.Context.SaveChanges();
-            return band;
+            return artist;
         }//END Create()
-        public Artist Update( Artist band ){
+        public Artist Update( Artist artist ){
             
-            Artist result = this.Context.Artists.SingleOrDefault( b => b.Id.Equals( band.Id ) );
+            Artist result = this.Context.Artists.SingleOrDefault( b => b.Id.Equals( artist.Id ) );
             if( result == null ) return null;
             try{
-                this.Context.Entry( result ).CurrentValues.SetValues( band );
+                this.Context.Entry( result ).CurrentValues.SetValues( artist );
                 this.Context.SaveChanges();
                 return result;
             }catch( Exception e ){
@@ -49,8 +49,8 @@ namespace LyrnicsDotnetCore.Repository.Implementations{
             return false;
         }//END Delete()
 
-        private bool Exists( Artist band ){
-            return this.Context.Artists.Any( b => b.Id.Equals( band.Id ) );
+        private bool Exists( Artist artist ){
+            return this.Context.Artists.Any( b => b.Id.Equals( artist.Id ) );
         }//END Exists()
         
     }//END class

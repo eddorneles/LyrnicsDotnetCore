@@ -10,19 +10,18 @@ using LyrnicsDotnetCore.Repository;
 namespace LyrnicsDotnetCore.Business.Implementations {
     public class SongBusinessImpl : ISongBusiness
     {
-        ISongRepository SongRepository;
-        public SongBusinessImpl( ISongRepository songRepository ){
-            this.SongRepository = songRepository;
-        }
+        IGenericRepository<Song> Repository;
+        public SongBusinessImpl( IGenericRepository<Song> repository ){
+            this.Repository = repository;
+        }//END constructor
 
-        public Song Create(Song song)
-        {
-            return this.SongRepository.Create( song );
+        public Song Create(Song song) {
+            return this.Repository.Create( song );
         }
 
         public bool Delete(int id)
         {
-            return this.SongRepository.Delete( id );
+            return this.Repository.Delete( id );
         }
 
         public IList<Song> FindAll()

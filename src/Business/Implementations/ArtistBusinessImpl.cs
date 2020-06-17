@@ -6,35 +6,34 @@ using LyrnicsDotnetCore.Repository;
 
 namespace LyrnicsDotnetCore.Business.Implementations {
     public class ArtistBusinessImpl : IArtistBusiness {
-        private readonly IArtistRepository ArtistRepository;
+        private readonly IGenericRepository<Artist> Repository;
 
-        public ArtistBusinessImpl( IArtistRepository bandRepository ){
-            //this.bandBusiness = bandBusiness;
-            this.ArtistRepository = bandRepository;
+        public ArtistBusinessImpl( IGenericRepository<Artist> repository ){
+            this.Repository = repository;
         }//END constructor
 
         public Artist Create(Artist band) {
-            return this.ArtistRepository.Create( band );
+            return this.Repository.Create( band );
         }
 
         public bool Delete(int id)
         {
-            return this.ArtistRepository.Delete( id );
+            return this.Repository.Delete( id );
         }
 
         public IList<Artist> FindAll()
         {
-            return this.ArtistRepository.FindAll();
+            return this.Repository.FindAll();
         }
 
         public Artist FindById(int id)
         {
-            return this.ArtistRepository.FindById( id );
+            return this.Repository.FindById( id );
         }
 
         public Artist Update(Artist band)
         {
-            return this.ArtistRepository.Update( band );
+            return this.Repository.Update( band );
         }
     }//END interface
 }//END namespace
