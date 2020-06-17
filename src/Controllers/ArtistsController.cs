@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using LyrnicsDotnetCore.Repository;
 using LyrnicsDotnetCore.Business;
-using LyrnicsDotnetCore.Model;
+using LyrnicsDotnetCore.Data.Dto;
 
 namespace LyrnicsDotnetCore.Controllers{
 
@@ -18,26 +18,26 @@ namespace LyrnicsDotnetCore.Controllers{
 
         [HttpGet]
         public IActionResult Index(){
-            IList<Artist> artists = this.ArtistBusiness.FindAll();
+            IList<ArtistDto> artists = this.ArtistBusiness.FindAll();
             return Ok( artists );
         }//END Get()
         
         [HttpGet( "{id}" )]
         public IActionResult Get( int id ){
-            Artist artist = this.ArtistBusiness.FindById( id );
+            ArtistDto artist = this.ArtistBusiness.FindById( id );
             return Ok( artist );
         }//END Get()
 
         [HttpPost]
-        public IActionResult Post( [FromBody] Artist artist ){
-            Artist createdArtist = this.ArtistBusiness.Create( artist );
+        public IActionResult Post( [FromBody] ArtistDto artist ){
+            ArtistDto createdArtist = this.ArtistBusiness.Create( artist );
             return Ok( createdArtist );
         }//END Post()
 
         [HttpPut("{id}")]
-        public IActionResult Update( [FromRoute] int artistId, [FromBody] Artist artist ){
+        public IActionResult Update( [FromRoute] int artistId, [FromBody] ArtistDto artist ){
             artist.Id = artistId;
-            Artist updatedArtist = this.ArtistBusiness.Update( artist );
+            ArtistDto updatedArtist = this.ArtistBusiness.Update( artist );
             return Ok( updatedArtist );
         }//END Post()
 

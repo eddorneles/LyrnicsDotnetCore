@@ -5,7 +5,7 @@ using LyrnicsDotnetCore.Model;
 namespace LyrnicsDotnetCore.Repository {
     public interface IArtistRepository {
         
-        public IList<Artist> FindAll();
+        public List<Artist> FindAll();
         public Artist FindById( int id );
         public Artist Create( Artist band );
         public Artist Update( Artist band );

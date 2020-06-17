@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 
-using LyrnicsDotnetCore.Model;
+using LyrnicsDotnetCore.Data.Dto;
 
 namespace LyrnicsDotnetCore.Business {
     public interface ISongBusiness {
-        public IList<Song> FindAll();
-        public Song FindById( int id );
-        public Song Create( Song song );
-        public Song Update( Song song );
+        public List<SongDto> FindAll();
+        public SongDto FindById( int id );
+        public SongDto Create( SongDto song );
+        public SongDto Update( SongDto song );
         public bool Delete( int id );
     }//END interface
 }//END namespace

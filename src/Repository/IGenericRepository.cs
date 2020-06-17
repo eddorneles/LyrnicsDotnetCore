@@ -5,7 +5,7 @@ using LyrnicsDotnetCore.Model;
 namespace LyrnicsDotnetCore.Repository {
     public interface IGenericRepository<T> where T : BaseEntity {
         
-        public IList<T> FindAll();
+        public List<T> FindAll();
         public T FindById( int id );
         public T Create( T item );
         public T Update( T item );

@@ -12,7 +12,7 @@ namespace LyrnicsDotnetCore.Repository.Implementations{
             this.Context = context;
         }//END constructor
         
-        public IList<Artist> FindAll() {
+        public List<Artist> FindAll() {
             return this.Context.Artists.ToList();
         }//END FindAll()
 

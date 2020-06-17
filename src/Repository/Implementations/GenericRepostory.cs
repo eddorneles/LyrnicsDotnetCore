@@ -17,7 +17,7 @@ namespace LyrnicsDotnetCore.Repository {
             this.Dataset = context.Set<T>();
         }
         
-        public IList<T> FindAll(){
+        public List<T> FindAll(){
             return this.Dataset.ToList();
         }
         public T FindById( int id ){

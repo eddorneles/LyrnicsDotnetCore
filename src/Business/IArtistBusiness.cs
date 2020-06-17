@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 
-using LyrnicsDotnetCore.Model;
+using LyrnicsDotnetCore.Data.Dto;
 
 namespace LyrnicsDotnetCore.Business {
     public interface IArtistBusiness {
-        public IList<Artist> FindAll();
-        public Artist FindById( int id );
-        public Artist Create( Artist artist );
-        public Artist Update( Artist artist );
+        public List<ArtistDto> FindAll();
+        public ArtistDto FindById( int id );
+        public ArtistDto Create( ArtistDto artist );
+        public ArtistDto Update( ArtistDto artist );
         public bool Delete( int id );
     }//END interface
 }//END namespace
